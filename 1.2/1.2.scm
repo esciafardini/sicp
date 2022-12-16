@@ -37,74 +37,7 @@
 (define (inc x) (+ x 1))
 (define (dec x) (- x 1))
 
-; Exercise 1.9
-; Are these processes iterative or recursive?
-(define (plus a b)
-  (if (= a 0)
-    b
-    (inc (plus (dec a) b))))
-; ^ Recursive process
-(plus 4 5)
-(inc (plus 3 5))
-(inc (inc (plus 2 5)))
-(inc (inc (inc (plus 1 5))))
-(inc (inc (inc (inc (plus 0 5)))))
-(inc (inc (inc (inc 5))))
-(inc (inc (inc 6)))
-(inc (inc 7))
-(inc 8)
-; => 9
-
-
-(define (plus-again a b)
-  (if (= a 0)
-    b
-    (plus-again (dec a) (inc b))))
-; ^ Iterative process
-(plus-again 4 5)
-(plus-again 3 6)
-(plus-again 2 7)
-(plus-again 1 8)
-(plus-again 0 9)
-; => 9
-
-;Exercise 1.10
-; Ackerman's Function
-
-(define (A x y)
-  (cond ((= y 0) 0)
-        ((= x 0) (* 2 y))
-        ((= y 1) 2)
-        (else (A (- x 1)
-                 (A x (- y 1))))))
-
-(A 1 10)
-(A 0 (A 1 9))
-(* 2 (A 1 9))
-(* 2 (A 0 (A 1 8)))
-(* 2 (* 2 (A 0 (A 1 7))))
-(* 2 (* 2 (* 2 (A 0 (A 1 6)))))
-(* 2 2 2 2 2 2 2 2 2 2)
-
-; A means of computing binary exponents
-
-(A 2 4)
-(A 3 3)
-
-(define (f n) (A 0 n))
-; 2n
-
-(define (g n) (A 1 n))
-; 2^n
-
-(define (h n) (A 2 n))
-; 2^h(n-1)
-
-(define (k n) (* 5 n n))
-; 5(n^2)
-
 ; TREE RECURSION
-; multiple recursive calls at each branch?
 
 ; "recursive iteration" example
 
@@ -115,19 +48,49 @@
     (else (+ (fib (- n 1))
              (fib (- n 2))))))
 
+;outer-most leaves (will always return 0 or 1)
+(fib 0)
+(fib 1)
+;
+; these create tree-like shapes
+       (fib 3)
+;      /      \
+; + (fib 1)  (fib 2)
+;            /     \
+; +      (fib 1)   (fib 0)
+
+(fib 3) ;=> 2
+
+(fib 11)
+
 ; exponential time O(n^2)
 ;    NOT GOOD
 
+(define god (/
+              (+ 1 (sqrt 5))
+              2))
 
-;; "linear iteration" example
+(define (golden-ratio n)
+  (/
+    (expt god n)
+    (sqrt 5)))
 
-(define (fib-iter a b count)
-  (if (= count 0)
-    b
-    (fib-iter (+ a b) a (- count 1))))
+(golden-ratio 11)
+(fib 11)
 
-(define (fib2 n)
-  (fib-iter a b count))
+(golden-ratio 23)
+(fib 23)
+
+;There is a better way to calculate fib (recall: iterative processes)
+
+(define (fib-iter n)
+  (define (fib-loop a b count)
+    (if (= count 0)
+      b
+      (fib-loop (+ a b) a (dec count))))
+  (fib-loop 1 0 n))
+
+(fib-iter 5)
 
 ; linear time O(n)
 ;   way better
