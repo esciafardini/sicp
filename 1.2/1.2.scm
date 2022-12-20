@@ -95,50 +95,28 @@
 ; linear time O(n)
 ;   way better
 
+
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;Page 40;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;; COUNTING CHANGE ;;;;;;;;
-;How many different ways can we make change of $1.00 (100)
-; given
-;  half dollars (50)
-;  quarters (25)
-;  dimes (10)
-;  nickels (5)
-;  pennies (1)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; *RE-VISIT*
-; let's say 10 cents is your change
-; 1 dime
-; 2 nickels
-; 1 nickel, 5 pennies
-; 10 pennies
-; =
-; 4 ways
+; this still feels like sorcery
 
-; that is the crux of this problem
-
-
-; consider:
-; (d) as the denomination of the first kind of coin
-;
-;
-; number of ways to change amount (a)
-; using (n) kinds of coins
-; =
-; number of ways to change amount (a) using all but the first kind of coin
-; +
-; number of ways to change amount a
-; -
-; (d) using all (n) kinds of coins
-
-
-; Counting Change
-;
-; if a = 0 : there is 1 way to make change
-; if a <= 0 : there are 0 ways to make change
-; if n = 0 : there are 0 ways to make change
-
-; takes the number of coins available,
-; returns the denomination of the first kind
-(define (first-denomination kinds-of-coins)
+(define (highest-denomination kinds-of-coins)
   (cond ((= kinds-of-coins 1) 1)    ;pennies
         ((= kinds-of-coins 2) 5)    ;nickels
         ((= kinds-of-coins 3) 10)   ;dimes
@@ -150,12 +128,36 @@
         ((or (< amount 0) (= kinds-of-coins 0)) 0)
         (else (+ (cc amount (- kinds-of-coins 1))
                  (cc
-                   (- amount (first-denomination kinds-of-coins)) kinds-of-coins)))))
+                   (- amount
+                      (highest-denomination kinds-of-coins))
+                   kinds-of-coins)))))
 
 (define (count-change amount)
   (cc amount 5))
 
 (count-change 10)
+;;
+;
 
-(define square (lambda (x) (* x x)))
-(square 9)
+(cc 100 5)
+
+(+ (cc 100 4)
+   (cc (- 100 50) 5))
+
+(+ (cc 100 4)
+   (cc 50 5))
+
+(cc 100 4)
+;=>
+(+ (cc 100 3)
+   (cc (- 100 25) 4))
+
+
+(cc 50 5)
+;=>
+(+ (cc 50 4)
+   (cc (- 50 50) 5))
+;=>
+(+ (cc 50 4)
+   (cc 0 5))
+
