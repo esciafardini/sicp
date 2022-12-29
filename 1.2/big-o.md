@@ -1,4 +1,5 @@
-# Big O Notation
+# Time Complexity
+runtime of an algorithm as the size of inputs increase
 
 ## Sum all numbers leading up to n (2 solutions)
 
@@ -53,3 +54,37 @@ This is the case regardless of the size of n
 This is referred to as `Constant`
 
 O(1)
+
+## Counting with Big O
+5n + 2 => n
+
+O(2n) => O(n)
+
+O(344) => O(1)
+
+O(13n^2) => O(n^2)
+
+Arithmetic operations are constant
+
+Variable assignment is constant
+
+Accessing elements in an array with an index is constant (javascript)
+
+Loop == Length of loop * complexity inside loop
+
+# Space Complexity
+how much additional memory do we need to allocate?
+
+we are talking about auxiliary space complexity here (what happens inside algorithm)
+
+## Inputs
+Most primitives are constant space
+
+Reference Types and Strings are O(n) space
+
+## Logarithms
+
+Always log base 2 in Big O
+
+log n is really good for larger inputs
+
