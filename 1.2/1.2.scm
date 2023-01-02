@@ -135,29 +135,8 @@
 (define (count-change amount)
   (cc amount 5))
 
-(count-change 10)
-;;
-;
+(count-change 11)
 
-(cc 100 5)
+(cc 11 5)
 
-(+ (cc 100 4)
-   (cc (- 100 50) 5))
-
-(+ (cc 100 4)
-   (cc 50 5))
-
-(cc 100 4)
-;=>
-(+ (cc 100 3)
-   (cc (- 100 25) 4))
-
-
-(cc 50 5)
-;=>
-(+ (cc 50 4)
-   (cc (- 50 50) 5))
-;=>
-(+ (cc 50 4)
-   (cc 0 5))
 

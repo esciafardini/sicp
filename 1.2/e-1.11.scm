@@ -16,34 +16,12 @@
 (recursive-ver 5)
 (recursive-ver 6)
 
+;Space complexity = Time complexity
+; O(n)
+
+;not so hot for larger inputs
 
 ;iterative ver:
-(define (iterative-ver n)
-  ;add a count
-  (if (< n 3)
-    n
-    iterative-ver 2 + 2 + 0
-    ))
-
-
-; f(n) = f(n - 1) + 2f(n - 2) + 3f(n - 3)
-4
-
-f (3) +
-  2 * f (1) +
-  3 * f (2)
-
-
-f (3)
-= f(2) + 2f(1) + 3f(0)
-= 2 + 2 + 0
-
-  +
-  2 * 1 +
-  3 * 2
-
-(+ 3 3 6)
-
 (define (f n)
   (if (< n 3)
     n
@@ -53,3 +31,12 @@ f (3)
   (if (= count 0)
       c
       (f-iter b c (+ c (* 2 b) (* 3 a)) (- count 1))))
+
+;Space complexity is significantly less in the iterative solution
+; O(1)
+;Time complexity is the same
+; O(n)
+;
+;This is because memory is not being allocated at each step for delayed evaluation
+
+(f 100)
