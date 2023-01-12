@@ -139,4 +139,43 @@
 
 (cc 11 5)
 
+;;
+;;
+;;....ANYWAYS....
+;;
+;;
+;; 1.2.4 Exponentiation
 
+; a linear `recursive` process:
+(define (expt b n)
+  (if (= n 0)
+    1
+    (* b (expt b (- n 1)))))
+;O(n) space & O(n) time complexity
+
+; a linear `iterative` version:
+;;;; Generally, has a counter
+;;;; along with an accumulator
+
+(define (expt-iter b counter product)
+  (if (= counter 0)
+    product
+    (expt-iter b (- counter 1) (* b product))))
+
+(define (expt-v2 b n)
+  (expt-iter b n 1))
+;O(1) space & O(n) time complexity
+
+(define (even? n)
+  (= (remainder n 2) 0))
+
+(define (square n)
+  (* n n))
+
+(define (fast-exponent b n)
+  (cond
+    ((= n 0) 1)
+    ((even? n)
+     (square (fast-exponent b (/ n 2))))
+    (else
+      (* b (fast-exponent b (- n 1))))))

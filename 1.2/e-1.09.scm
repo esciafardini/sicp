@@ -1,3 +1,4 @@
+#lang sicp
 ;Exercise 1.9
 
 ;Illustrate and identify as
