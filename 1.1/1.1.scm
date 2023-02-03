@@ -38,12 +38,27 @@
     (sqrt-iter (improve-square guess x)
                x)))
 
+(square .000001)
+
+;inaccurate
+(good-enough? .00000118321 .000000000014)
+
+(square 123125235123)
+(good-enough?
+  123125235123
+  15159823524094032825129)
+
 (define (sqrt x)
   (sqrt-iter 1.0 x))
 
 (sqrt 2)
 (sqrt 4)
 (sqrt 8359079184) ;;good, accurate
+
+(= .00000000000000001
+   (square (sqrt .00000000000000001)))
+
+(square (sqrt 8359079183323112123234))
 
 ;; parameters are local to the bodies of their respective procedures
 (define (sqr x) (* x x))

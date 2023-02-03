@@ -14,3 +14,5 @@
     ((= x (min x y z)) (sum-of-squares y z))
     ((= y (min x y z)) (sum-of-squares x z))
     (else  (sum-of-squares y x))))
+
+(sum-of-squares-max-two 3 4 5)
