@@ -1,4 +1,6 @@
 ;; Exercise 1.7
+#lang racket/base
+(require racket/trace)
 
 
 (define (square x) (* x x))
@@ -12,16 +14,13 @@
 (define (improve-square guess x)
   (average guess (/ x guess)))
 
-(define (sqrt-iter guess x)
+(define (sqrt-iter guess x diff)
   (if (good-enough? guess x)
     guess
-    (sqrt-iter (improve-square guess x)
-               x)))
+    (sqrt-iter (improve-square guess x) x (- (square guess) x))))
 
-(define (sqrrt x) (sqrt-iter 1.0 x))
-(sqrrt 4)
+(define (sqrrt x) (sqrt-iter 1.0 x 0))
 
-(sqrt 12345678901234)
 
 
 ;; try a version that tests against the last guess
@@ -32,11 +31,17 @@
   (if (new-good-enough? guess x)
     guess
     (sqrt-iter (improve-square guess x)
-               x)))
+               x 0)))
+
+(trace sqrt-iter)
+
 
 (define (new-sqrt x)
   (new-sqrt-iter 1.0 x))
 
+(trace sqrrt)
+
 ;;still sucks
-(new-sqrt 4) ;weird, inaccurate
-(new-sqrt 8359079184) ;;good, accurate
+
+(sqrrt 8359079182.73) ;;good, accurate
+
